@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Registration - Al-Qur'an</title>
+    <link rel="stylesheet" href="{% static 'signup/styles/auth.css' %}?v=1.0.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="{% url 'signup_step2_verify' %}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <span class="logo-icon">☪️</span>
+                <p class="name">Al-Qur'an</p>
+            </div>
+        </header>
+
+        <section class="auth-container">
+            <div class="auth-box">
+                <h1 class="auth-title">Almost There!</h1>
+                <p class="auth-subtitle">Step 3 of 3: Complete your profile</p>
+                <p style="text-align: center; color: var(--earth-yellow); font-weight: 600; margin-bottom: 1.5rem;">
+                    ✓ Email verified: {{ email }}
+                </p>
+
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                <div class="message-box">{{ message }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <form class="auth-form" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="id_full_name">Full Name</label>
+                        {{ form.full_name }}
+                        {% if form.full_name.errors %}
+                            <ul class="errorlist">{{ form.full_name.errors }}</ul>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_password1">Password</label>
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <ul class="errorlist">{{ form.password1.errors }}</ul>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_password2">Confirm Password</label>
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <ul class="errorlist">{{ form.password2.errors }}</ul>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="auth-button">Create Account</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const messageSuccess = document.querySelector('.messages li.success');
+        if (messageSuccess) {
+          setTimeout(function() {
+            window.location = '/';
+          }, 800);
+        }
+      });
+    </script>
+    <script src="https://kit.fontawesome.com/94c0a930ff.js" crossorigin="anonymous"></script>
+</body>
+</html>

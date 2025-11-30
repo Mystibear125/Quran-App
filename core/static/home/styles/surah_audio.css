@@ -1,0 +1,72 @@
+        /* Specific styles for the audio player page */
+        .audio-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 8rem 2rem 2rem 2rem;
+            margin-top: 4rem;
+            gap: 2rem;
+        }
+
+        .surah-header {
+            text-align: center;
+            color: var(--tigers-eye);
+        }
+
+        .surah-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .surah-header p {
+            color: var(--dark-moss-green);
+            font-size: 1.2rem;
+        }
+
+        .controls-box {
+            background-color: var(--pakistan-green);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: min(90%, 600px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .reciter-select {
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1rem;
+            background-color: var(--cornsilk);
+            color: var(--dark-moss-green);
+            width: 100%;
+            cursor: pointer;
+        }
+
+        audio {
+            width: 100%;
+            height: 50px;
+            border-radius: 30px;
+        }
+        
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 8.5rem;
+            left: 2rem;
+            text-decoration: none;
+            color: var(--tigers-eye);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s;
+        }
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }

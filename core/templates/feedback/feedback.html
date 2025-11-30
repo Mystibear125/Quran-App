@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Al-Qur'an</title>
+    <link rel="stylesheet" href="{% static 'feedback/styles/pages-style.css' %}?v=1.0.1">
+    <link rel="stylesheet" href="{% static 'home/styles/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="{% url 'home' %}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="logo">
+            <p class="name">Al-Qur'an</p>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <section class="content-section">
+            <h1 class="page-title">Your Feedback Matters</h1>
+            
+            <div class="content-card">
+                <p class="intro-text">Help us improve your Qur'an reading experience. Share your thoughts, report issues, or suggest new features.</p>
+            </div>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form class="contact-form" method="post">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="form-errors">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="feedback-name">Name (Optional)</label>
+                    <input type="text" id="feedback-name" name="name" placeholder="Anonymous" value="{{ form.name.value|default:'' }}">
+                    {% if form.name.errors %}
+                        <div class="field-error">{{ form.name.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback-email">Email (Optional)</label>
+                    <input type="email" id="feedback-email" name="email" placeholder="your.email@example.com" value="{{ form.email.value|default:'' }}">
+                    {% if form.email.errors %}
+                        <div class="field-error">{{ form.email.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback-type">Feedback Type</label>
+                    <select id="feedback-type" name="feedback_type" required>
+                        <option value="">Select type</option>
+                        {% for value, label in form.feedback_type.field.choices %}
+                            <option value="{{ value }}" {% if form.feedback_type.value == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.feedback_type.errors %}
+                        <div class="field-error">{{ form.feedback_type.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="rating">Overall Experience</label>
+                    <div class="rating-container">
+                        {% for value in rating_options %}
+                            {% with value_str=value|stringformat:"s" %}
+                                <input
+                                    type="radio"
+                                    id="star{{ value }}"
+                                    name="rating"
+                                    value="{{ value }}"
+                                    {% if form.rating.value|stringformat:"s" == value_str %}checked{% endif %}
+                                >
+                                <label for="star{{ value }}"><i class="fa-solid fa-star"></i></label>
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+                    {% if form.rating.errors %}
+                        <div class="field-error">{{ form.rating.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback-message">Your Feedback</label>
+                    <textarea id="feedback-message" name="message" rows="6" required placeholder="Tell us what you think...">{{ form.message.value|default:'' }}</textarea>
+                    {% if form.message.errors %}
+                        <div class="field-error">{{ form.message.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Feedback</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="https://kit.fontawesome.com/94c0a930ff.js" crossorigin="anonymous"></script>
+</body>
+</html>

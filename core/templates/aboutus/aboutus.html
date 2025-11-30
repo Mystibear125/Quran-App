@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Al-Qur'an</title>
+    <link rel="stylesheet" href="{% static 'aboutus/styles/pages-style.css' %}?v=1.0.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="{% url 'home' %}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="logo">
+            <p class="name">Al-Qur'an</p>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <section class="content-section">
+            <h1 class="page-title">About Us</h1>
+            
+            <div class="content-card">
+                <h2>Our Mission</h2>
+                <p>We are dedicated to making the Holy Qur'an accessible to everyone, anywhere, at any time. Our platform provides a seamless digital experience for reading, learning, and understanding the divine words of Allah.</p>
+            </div>
+
+            <div class="content-card">
+                <h2>What We Offer</h2>
+                <ul class="feature-list">
+                    <li>Complete collection of all 114 Surahs</li>
+                    <!-- <li>Clear Arabic text with accurate translations</li> -->
+                    <li>Easy-to-navigate interface</li>
+                    <li>Search functionality to find specific verses</li>
+                    <!-- <li>Bookmark your reading progress</li> -->
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h2>Our Vision</h2>
+                <p>To create a global community connected through the Qur'an, fostering understanding, peace, and spiritual growth. We believe technology can bridge the gap between tradition and modern accessibility.</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Why Choose Us</h2>
+                <p>Our platform is built with care and respect for the sacred text. We prioritize accuracy, user experience, and spiritual connection. Whether you're a scholar, student, or someone seeking guidance, Al-Qur'an is here to serve your journey.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://kit.fontawesome.com/94c0a930ff.js" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+

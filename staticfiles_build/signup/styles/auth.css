@@ -1,0 +1,283 @@
+:root {
+    --dark-moss-green: hsl(74, 32%, 32%);
+    --pakistan-green: hsl(88, 38%, 15%);
+    --cornsilk: hsl(52, 94%, 94%);
+    --earth-yellow: hsl(32, 65%, 62%);
+    --tigers-eye: hsl(28, 67%, 44%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Lexend, "Open Sans", Roboto, Arial, sans-serif;
+    font-size: 18px;
+    background-color: var(--earth-yellow);
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1.2rem clamp(1rem, 5vw, 4rem);
+    backdrop-filter: blur(3px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo-icon {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-right: clamp(0.5rem, 2vw, 1rem);
+}
+
+.logo .name {
+    font-family: "Open Sans", sans-serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 900;
+    color: var(--cornsilk);
+    padding: clamp(0.5rem, 2vw, 1rem);
+    border-radius: 10rem;
+    box-shadow: 1px 2px 6px 1px var(--tigers-eye);
+}
+
+/* Auth Container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: clamp(9rem, 9vh, 9rem) 4rem;
+}
+
+.auth-box {
+    background-color: var(--pakistan-green);
+    padding: clamp(2rem, 5vw, 3rem);
+    border-radius: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 450px;
+}
+
+.auth-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--cornsilk);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: var(--cornsilk);
+    text-align: center;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--cornsilk);
+    margin-left: 0.5rem;
+}
+
+.form-group input {
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--tigers-eye);
+    border-radius: 0.5rem;
+    background-color: var(--cornsilk);
+    color: var(--dark-moss-green);
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: 1px 2px 6px 1px var(--tigers-eye);
+}
+
+.form-group input:focus {
+    border-color: var(--earth-yellow);
+    box-shadow: 0 0 0 3px rgba(218, 165, 105, 0.2);
+}
+
+.form-group input::placeholder {
+    color: var(--earth-yellow);
+    font-weight: 300;
+}
+
+/* Form Options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cornsilk);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--tigers-eye);
+}
+
+.checkbox-label span {
+    display: inline;
+}
+
+.forgot-link {
+    font-size: 0.9rem;
+    color: var(--earth-yellow);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+    color: var(--cornsilk);
+}
+
+/* Auth Button */
+.auth-button {
+    padding: 0.9rem 2rem;
+    background-color: var(--tigers-eye);
+    color: var(--cornsilk);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 0.5rem;
+}
+
+.auth-button:hover {
+    background-color: var(--earth-yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.auth-button:active {
+    transform: translateY(0);
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: var(--cornsilk);
+    opacity: 0.6;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--cornsilk);
+    opacity: 0.3;
+}
+
+.divider span {
+    padding: 0 1rem;
+    font-size: 0.9rem;
+}
+
+/* Switch Auth */
+.switch-auth {
+    text-align: center;
+    color: var(--cornsilk);
+    font-size: 0.95rem;
+}
+
+.switch-auth a {
+    color: var(--earth-yellow);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.switch-auth a:hover {
+    color: var(--tigers-eye);
+}
+
+/* Make Django fields look like your custom inputs */
+.auth-form input {
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--tigers-eye);
+    border-radius: 0.5rem;
+    background-color: var(--cornsilk);
+    color: var(--dark-moss-green);
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: 1px 2px 6px 1px var(--tigers-eye);
+}
+
+.auth-form input:focus {
+    border-color: var(--earth-yellow);
+    box-shadow: 0 0 0 3px rgba(218, 165, 105, 0.2);
+}
+
+/* Django error messages */
+.errorlist {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    list-style: none;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .auth-box {
+        padding: 1.5rem;
+    }
+
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .forgot-link {
+        align-self: center;
+    }
+}

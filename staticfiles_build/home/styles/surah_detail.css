@@ -1,0 +1,392 @@
+:root {
+    --dark-moss-green: hsl(74, 32%, 32%);
+    --pakistan-green: hsl(88, 38%, 15%);
+    --cornsilk: hsl(52, 94%, 94%);
+    --earth-yellow: hsl(32, 65%, 62%);
+    --tigers-eye: hsl(28, 67%, 44%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Lexend, "Open Sans", Roboto, Arial, sans-serif;
+    font-size: 18px;
+    background-color: var(--earth-yellow);
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem clamp(1rem, 5vw, 4rem);
+    backdrop-filter: blur(4px);
+    background-color: rgba(218, 165, 105, 0.9);
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cornsilk);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.back-button:hover {
+    color: var(--tigers-eye);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-right: clamp(0.5rem, 2vw, 1rem);
+}
+
+.logo .name {
+    font-family: "Open Sans", sans-serif;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 900;
+    color: var(--cornsilk);
+    padding: clamp(0.5rem, 2vw, 1rem);
+    border-radius: 10rem;
+    box-shadow: 1px 2px 6px 1px var(--tigers-eye);
+}
+
+/* Loading State */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 1rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--cornsilk);
+    border-top-color: var(--tigers-eye);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: var(--cornsilk);
+    font-size: 1.2rem;
+}
+
+/* Surah Content */
+.surah-content {
+    padding: clamp(6rem, 10vh, 8rem) clamp(1rem, 5vw, 4rem) 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Surah Header */
+.surah-header {
+    background: var(--pakistan-green);
+    padding: clamp(2rem, 4vw, 3rem);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.surah-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--cornsilk);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+}
+
+.surah-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--earth-yellow);
+    margin-bottom: 1rem;
+}
+
+.surah-meta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.meta-badge {
+    background: var(--tigers-eye);
+    color: var(--cornsilk);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Audio Player */
+.audio-player {
+    background: var(--pakistan-green);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.player-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.player-header h3 {
+    font-size: 1.5rem;
+    color: var(--cornsilk);
+    margin-bottom: 0.5rem;
+}
+
+.reciter-name {
+    color: var(--earth-yellow);
+    font-size: 1rem;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.play-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: var(--tigers-eye);
+    color: var(--cornsilk);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.play-btn:hover {
+    background: var(--earth-yellow);
+    transform: scale(1.05);
+}
+
+.play-btn:active {
+    transform: scale(0.95);
+}
+
+.progress-container {
+    flex: 1;
+    min-width: 200px;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    color: var(--cornsilk);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(249, 247, 232, 0.2);
+    border-radius: 1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--earth-yellow);
+    border-radius: 1rem;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--cornsilk);
+}
+
+.volume-control i {
+    font-size: 1.2rem;
+}
+
+#volumeSlider {
+    width: 100px;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(249, 247, 232, 0.2);
+    border-radius: 1rem;
+    outline: none;
+    cursor: pointer;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--earth-yellow);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volumeSlider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--earth-yellow);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+/* Verses Section */
+.verses-container {
+    background: var(--pakistan-green);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-radius: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--cornsilk);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.verses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.verse-item {
+    background: rgba(249, 247, 232, 0.05);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid var(--tigers-eye);
+    transition: all 0.2s ease;
+}
+
+.verse-item:hover {
+    background: rgba(249, 247, 232, 0.1);
+    transform: translateX(5px);
+}
+
+.verse-number {
+    display: inline-block;
+    background: var(--tigers-eye);
+    color: var(--cornsilk);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.verse-arabic {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--cornsilk);
+    text-align: right;
+    line-height: 2;
+    margin-bottom: 1rem;
+    direction: rtl;
+}
+
+.verse-translation {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: var(--earth-yellow);
+    line-height: 1.6;
+}
+
+/* Error State */
+.error-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 1rem;
+    color: var(--cornsilk);
+}
+
+.error-state i {
+    font-size: 4rem;
+    color: var(--tigers-eye);
+}
+
+.error-state p {
+    font-size: 1.2rem;
+}
+
+.retry-btn {
+    padding: 0.8rem 2rem;
+    background: var(--tigers-eye);
+    color: var(--cornsilk);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.retry-btn:hover {
+    background: var(--earth-yellow);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .player-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .play-btn {
+        align-self: center;
+    }
+
+    .volume-control {
+        justify-content: center;
+    }
+
+    .back-button span {
+        display: none;
+    }
+}

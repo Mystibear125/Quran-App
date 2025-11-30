@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email - Al-Qur'an</title>
+    <link rel="stylesheet" href="{% static 'signup/styles/auth.css' %}?v=1.0.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <header>
+            <a href="{% url 'signup_step1_email' %}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <span class="logo-icon">☪️</span>
+                <p class="name">Al-Qur'an</p>
+            </div>
+        </header>
+
+        <section class="auth-container">
+            <div class="auth-box">
+                <h1 class="auth-title">Verify Your Email</h1>
+                <p class="auth-subtitle">Step 2 of 3: Enter the code sent to</p>
+                <p style="text-align: center; color: var(--earth-yellow); font-weight: 600; margin-bottom: 1.5rem;">{{ email }}</p>
+
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                <div class="message-box">{{ message }}</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <form class="auth-form" method="POST">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="id_code">Verification Code</label>
+                        {{ form.code }}
+                        {% if form.code.errors %}
+                            <ul class="errorlist">{{ form.code.errors }}</ul>
+                        {% endif %}
+                        <p style="font-size: 0.85rem; color: var(--cornsilk); opacity: 0.7; margin-top: 0.5rem; text-align: center;">
+                            Code expires in 5 minutes
+                        </p>
+                    </div>
+
+                    <button type="submit" class="auth-button">Verify Code</button>
+                </form>
+
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <p class="switch-auth">
+                    Didn't receive a code? 
+                    <a href="{% url 'signup_step2_resend' %}" id="resendLink">Resend Code</a>
+                    <span id="resendTimer" style="display: none; color: var(--earth-yellow); font-weight: 600;"></span>
+                </p>
+
+                <p class="switch-auth" style="margin-top: 1rem;">
+                    Wrong email? 
+                    <a href="{% url 'signup_step1_email' %}">Go Back</a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Auto-format code input
+        const codeInput = document.getElementById('id_code');
+        if (codeInput) {
+            codeInput.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        }
+
+        // Resend cooldown timer
+        const resendLink = document.getElementById('resendLink');
+        const resendTimer = document.getElementById('resendTimer');
+        
+        // Check if there's a cooldown message
+        const messages = document.querySelectorAll('.messages li');
+        messages.forEach(msg => {
+            const text = msg.textContent;
+            const match = text.match(/wait (\d+) seconds/);
+            if (match) {
+                const seconds = parseInt(match[1]);
+                startCooldown(seconds);
+            }
+        });
+
+        function startCooldown(seconds) {
+            let remaining = seconds;
+            resendLink.style.display = 'none';
+            resendTimer.style.display = 'inline';
+            
+            const countdown = setInterval(() => {
+                resendTimer.textContent = `(${remaining}s)`;
+                remaining--;
+                
+                if (remaining < 0) {
+                    clearInterval(countdown);
+                    resendLink.style.display = 'inline';
+                    resendTimer.style.display = 'none';
+                }
+            }, 1000);
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/94c0a930ff.js" crossorigin="anonymous"></script>
+</body>
+</html>

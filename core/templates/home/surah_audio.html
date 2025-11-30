@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listen to Surah {{ surah_number }}</title>
+    <link rel="stylesheet" href="{% static 'home/styles/surah_audio.css' %}">
+    <link rel="stylesheet" href="{% static 'home/styles/style.css' %}?v=1.0.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <span class="logo-icon">☪️</span>
+            <p class="name">Al-Qur'an</p>
+        </div>
+    </header>
+
+    <a href="{% url 'home' %}" class="back-btn">
+        <span>⬅️</span> Back to Surahs
+    </a>
+
+    <main class="audio-container">
+        
+        <div class="surah-header">
+            <h1 id="surahNameEnglish">Loading...</h1>
+            <p id="surahNameArabic">...</p>
+        </div>
+
+        <div class="controls-box">
+            <label style="color: var(--cornsilk); font-weight: 500;">Select Reciter:</label>
+            <select id="reciterSelect" class="reciter-select">
+                <option value="" disabled selected>Loading reciters...</option>
+            </select>
+
+            <audio id="audioPlayer" controls>
+                <source src="" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+    </main>
+
+    <script>
+        const surahNumber = "{{ surah_number }}";
+        const reciterSelect = document.getElementById('reciterSelect');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const nameEnglish = document.getElementById('surahNameEnglish');
+        const nameArabic = document.getElementById('surahNameArabic');
+
+        // 1. Fetch Surah Details (for Name)
+        async function fetchSurahDetails() {
+            try {
+                const response = await fetch(`https://api.quran.com/api/v4/chapters/${surahNumber}`);
+                const data = await response.json();
+                nameEnglish.textContent = data.chapter.name_simple;
+                nameArabic.textContent = data.chapter.name_arabic;
+            } catch (error) {
+                console.error("Error fetching details:", error);
+                nameEnglish.textContent = `Surah ${surahNumber}`;
+            }
+        }
+
+        // 2. Fetch List of Reciters
+        async function fetchReciters() {
+            try {
+                // Fetching reciters
+                const response = await fetch('https://api.quran.com/api/v4/resources/recitations?language=en');
+                const data = await response.json();
+                
+                reciterSelect.innerHTML = '<option value="" disabled selected>Select a Reciter</option>';
+                
+                // Sort by name for better UX
+                const reciters = data.recitations.sort((a, b) => a.reciter_name.localeCompare(b.reciter_name));
+
+                reciters.forEach(reciter => {
+                    const option = document.createElement('option');
+                    option.value = reciter.id;
+                    option.textContent = `${reciter.reciter_name}`;
+                    
+                    // Set Mishary Alafasy (ID 7) or another famous one as default preference if desired
+                    if(reciter.id === 7) option.selected = true;
+                    
+                    reciterSelect.appendChild(option);
+                });
+
+                // Trigger audio load for the first selected reciter automatically
+                if(reciterSelect.value) {
+                    loadAudio(reciterSelect.value);
+                }
+
+            } catch (error) {
+                console.error("Error fetching reciters:", error);
+                reciterSelect.innerHTML = '<option>Error loading reciters</option>';
+            }
+        }
+
+        // 3. Load Audio for Selected Reciter & Surah
+        async function loadAudio(reciterId) {
+            try {
+                const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${surahNumber}`);
+                const data = await response.json();
+                
+                if (data.audio_file && data.audio_file.audio_url) {
+                    audioPlayer.src = data.audio_file.audio_url;
+                    audioPlayer.play();
+                } else {
+                    alert("Audio not available for this reciter/surah.");
+                }
+            } catch (error) {
+                console.error("Error fetching audio:", error);
+            }
+        }
+
+        // Event Listener for Reciter Change
+        reciterSelect.addEventListener('change', (e) => {
+            loadAudio(e.target.value);
+        });
+
+        // Initialize
+        fetchSurahDetails();
+        fetchReciters();
+
+    </script>
+</body>
+</html>

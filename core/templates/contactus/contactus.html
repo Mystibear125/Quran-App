@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Al-Qur'an</title>
+    <link rel="stylesheet" href="{% static 'contactus/styles/pages-style.css' %}">
+    <link rel="stylesheet" href="{% static 'home/styles/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a href="{% url 'home' %}" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="logo">
+            <p class="name">Al-Qur'an</p>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <section class="content-section">
+            <h1 class="page-title">Contact Us</h1>
+            
+            <div class="content-card">
+                <p class="intro-text">We'd love to hear from you! Whether you have questions, suggestions, or need support, feel free to reach out.</p>
+            </div>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form class="contact-form" method="post">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="form-errors">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="id_name">Name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="field-error">{{ form.name.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="field-error">{{ form.email.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_subject">Subject</label>
+                    {{ form.subject }}
+                    {% if form.subject.errors %}
+                        <div class="field-error">{{ form.subject.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_message">Message</label>
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                        <div class="field-error">{{ form.message.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>support@alquran.com</p>
+                </div>
+                <!-- <div class="info-card">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h3>Location</h3>
+                    <p>Abuja, FCT, Nigeria</p>
+                </div> -->
+            </div>
+        </section>
+    </main>
+
+    <script src="https://kit.fontawesome.com/94c0a930ff.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In with Google - Al-Qur'an</title>
+    <link rel="stylesheet" href="{% static 'signin/styles/auth.css' %}?v=1.0.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Override auth.css for this specific page */
+        .google-confirm-box {
+            background: rgba(14, 67, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 2px solid var(--tigers-eye);
+        }
+        
+        .google-confirm-box p {
+            color: var(--cornsilk);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0;
+        }
+        
+        .google-continue-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background-color: var(--tigers-eye);
+            color: var(--cornsilk);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+        }
+        
+        .google-continue-btn:hover {
+            background-color: var(--earth-yellow);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .google-continue-btn:active {
+            transform: translateY(0);
+        }
+        
+        .home-link {
+            display: block;
+            text-align: center;
+            color: var(--earth-yellow);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .home-link:hover {
+            color: var(--tigers-eye);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <a href="{% url 'home' %}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div class="logo">
+                <span class="logo-icon">☪️</span>
+                <p class="name">Al-Qur'an</p>
+            </div>
+        </header>
+
+        <section class="auth-container">
+            <div class="auth-box">
+                <h1 class="auth-title">Sign In Via Google</h1>
+                <p class="auth-subtitle">You are about to sign in using your Google account</p>
+
+                <div class="google-confirm-box">
+                    <p>
+                        By continuing, you'll be able to access your Al-Qur'an account across all devices.
+                    </p>
+                </div>
+
+                <form method="post" action="{% url 'google_login' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="google-continue-btn">Continue with Google</button>
+                </form>
+
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <a href="{% url 'home' %}" class="home-link">Go Back Home</a>
+            </div>
+        </section>
+    </main>
+    <script src="https://kit.fontawesome.com/94c0a930ff.js" crossorigin="anonymous"></script>
+</body>
+</html>
