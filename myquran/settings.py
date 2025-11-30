@@ -171,3 +171,12 @@ if not DEBUG:
     
     # Additional Security
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# ALLOWED_HOSTS configuration
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
+# CSRF trusted origins (for production)
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://quran-app-7jbw.onrender.com',
+    ]
