@@ -109,14 +109,14 @@ header {
 }
 
 .header-status .tab span {
-    font-size: 1.2rem;
+    font-size: 1rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
 .header-status .tab p {
-    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    font-size: clamp(0.75rem, 1.4vw, 0.9rem);
     font-weight: 500;
 }
 
@@ -475,7 +475,7 @@ body.sidebar-open {
 /* Responsive Design */
 @media (max-width: 480px) {
     .sidebar {
-        width: 40%;
+        width: 50%;
     }
     
     .surah-list {
@@ -493,12 +493,19 @@ body.sidebar-open {
     .header-status{
         flex-direction: column;
         gap: 0rem;
+        margin-left: 2.5rem;
     }
     .header-status .tab{
         padding: 0rem;
     }
+    .header-status .tab span{
+        font-size: 0.65rem;
+    }
     .header-status p{
-        font-size: 0.9rem;
+        font-size: 0.75rem;
+    }
+    .search-bar {
+        padding-bottom: 0;
     }
 }
 
