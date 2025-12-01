@@ -8,9 +8,9 @@ from decouple import config, Csv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ==================== SECURITY SETTINGS ====================
-SECRET_KEY = config('v)@-yhi!0hs8)ld&f(6!_ys03g&6+@if$wr+iu+7fj^3u%mf8d')
+SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('quran-app-7jbw.onrender.com', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # ==================== APPLICATIONS ====================
 INSTALLED_APPS = [
