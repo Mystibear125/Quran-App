@@ -68,7 +68,7 @@ if config('DATABASE_URL', default=None):
     # Production: Render's DATABASE_URL
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('postgresql://qurandb_user:2ER0YIkHfAYITslIIwkhx0GBoGZt141I@dpg-d4m3r824d50c73ed6790-a/qurandb'),
+            default=config('DATABASE_URL'),
             conn_max_age=600
         )
     }
