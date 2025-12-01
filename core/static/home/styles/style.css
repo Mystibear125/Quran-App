@@ -273,7 +273,7 @@ body.sidebar-open {
 .search-icon {
     position: absolute;
     font-size: 0.95rem;
-    top: 21.5%;
+    top: 23%;
     left: 10%;
     transform: translate(-50%, -50%);
     z-index: 1;
