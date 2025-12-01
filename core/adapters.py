@@ -1,7 +1,6 @@
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from allauth.account.utils import user_email
 
-
 class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
     """
     Customize social account signup to populate our CustomUser fields.
