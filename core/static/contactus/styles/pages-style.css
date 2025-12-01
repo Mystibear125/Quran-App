@@ -19,9 +19,9 @@ header{
     position: fixed;
     z-index: 10;
     top: 0;
-    width: 85%;
+    width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 1.5rem;
     padding: 1.5rem 2rem;
     backdrop-filter: blur(3px);
@@ -41,6 +41,7 @@ header{
     justify-content: center;
     border-radius: 50%;
     box-shadow: 1px 2px 6px 1px hsla(28, 67%, 44%, 0.5);
+    padding-top: 4rem;
 }
 
 .back-btn:hover{
