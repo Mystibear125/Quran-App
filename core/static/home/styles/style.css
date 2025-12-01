@@ -493,8 +493,8 @@ body.sidebar-open {
     }
     .header-status{
         flex-direction: column;
-        gap: 0rem;
-        margin-left: 2.5rem;
+        gap: 0.25rem;
+        margin-left: 4rem;
     }
     .header-status .tab{
         padding: 0rem;
