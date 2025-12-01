@@ -193,31 +193,3 @@ class EmailVerification(models.Model):
         
         code = cls.generate_code()
         return cls.objects.create(email=email, code=code)
-
-@property
-def first_name_display(self):
-    """Get first name from full_name or fallback to username/email"""
-    if self.full_name:
-        parts = self.full_name.strip().split()
-        if parts:
-            return parts[0]
-    if self.first_name:  # Django's built-in field
-        return self.first_name
-    if self.username:
-        return self.username
-    return self.email.split('@')[0]
-
-@property
-def second_name_display(self):
-    """Get second name (or first if no second name exists)"""
-    if self.full_name:
-        parts = self.full_name.strip().split()
-        if len(parts) > 1:
-            return parts[1]
-        elif parts:
-            return parts[0]
-    if self.last_name:  # Django's built-in field
-        return self.last_name
-    if self.username:
-        return self.username
-    return self.email.split('@')[0]
