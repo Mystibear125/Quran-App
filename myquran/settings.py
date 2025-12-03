@@ -4,16 +4,19 @@ Django settings for myquran project - Production Ready
 import dj_database_url
 from pathlib import Path
 from decouple import config, Csv
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ==================== SECURITY SETTINGS ====================
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
-if not DEBUG:
-    allowed_hosts = config('ALLOWED_HOSTS', cast=Csv())
-    CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in allowed_hosts]
+# ALLOWED_HOSTS - Railway provides RAILWAY_PUBLIC_DOMAIN
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',') if config('ALLOWED_HOSTS', default='') else []
+
+# Add Railway domain automatically
+if 'RAILWAY_PUBLIC_DOMAIN' in os.environ:
+    ALLOWED_HOSTS.append(os.environ['RAILWAY_PUBLIC_DOMAIN'])
 
 # ==================== APPLICATIONS ====================
 INSTALLED_APPS = [
@@ -66,27 +69,21 @@ WSGI_APPLICATION = 'myquran.wsgi.application'
 
 AUTH_USER_MODEL = 'core.CustomUser'
 
+# CSRF trusted origins
+if not DEBUG:
+    csrf_origins = []
+    for host in ALLOWED_HOSTS:
+        if host:
+            csrf_origins.append(f'https://{host}')
+    CSRF_TRUSTED_ORIGINS = csrf_origins
+
 # ==================== DATABASE ====================
-if config('DATABASE_URL', default=None):
-    # Production: Render's DATABASE_URL
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL'),
-            conn_max_age=600
-        )
-    }
-else:
-    # Development: local DB settings
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME'),
-            'USER': config('DB_USER'),
-            'PASSWORD': config('DB_PASSWORD'),
-            'HOST': config('DB_HOST'),
-            'PORT': config('DB_PORT'),
-        }
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600
+    )
+}
 
 # ==================== PASSWORD VALIDATION ====================
 AUTH_PASSWORD_VALIDATORS = [

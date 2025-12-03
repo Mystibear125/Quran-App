@@ -1,2 +1,1 @@
-# Procfile
-web: gunicorn myquran.wsgi --log-file -
+web: gunicorn myquran.wsgi:application --bind 0.0.0.0:$PORT
